@@ -16,7 +16,7 @@ done
 
 # merge all of these together
 # utility taken from the python-gdal package
-ogrmerge.py -o all_TIGER_roads_2018.gpkg TIGER2018_S1200_roads/*.shp -progress -f GPKG
+ogrmerge.py -o all_TIGER_roads_2018.gpkg TIGER2018_S1200_roads/*.shp -progress -f GPKG -single
 
 # cleanup
 rm -r ftp2.census.gov
