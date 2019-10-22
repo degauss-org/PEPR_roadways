@@ -8,7 +8,7 @@ The U.S. Census Bureau defines primary (S1100) roadways as "generally divided, l
 
 ![](figs/us_primary_roads.png)
 
-Secondary roads are described as "main arteries, usually in the U.S. highway, state highway, or county highway system" and "have one or more lanes of traffic in each direction, may or may not be divided, and usually have at-grade intersections with many other roads and driveways". 
+Secondary (S1200) roads are described as "main arteries, usually in the U.S. highway, state highway, or county highway system" and "have one or more lanes of traffic in each direction, may or may not be divided, and usually have at-grade intersections with many other roads and driveways".
 
 This container returns the distance to the nearest primary road and the distance to the nearest secondary road for each geocoded address, as well as the total length of primary roads and the total length of secondary roads within a buffer (defaults to 300 m) around each address. 
 
@@ -25,13 +25,13 @@ DeGAUSS arguments specific to this container:
 **MacOS**
 
 ```
-docker run --rm -v "$PWD":/tmp degauss/pepr_roadways:0.1 my_address_file_geocoded.csv
+docker run --rm=TRUE -v "$PWD":/tmp degauss/pepr_roadways:0.2 my_address_file_geocoded.csv
 ```
 
 **Microsoft Windows**
 
 ```
-docker run --rm -v "%cd%":/tmp degauss/pepr_roadways:0.1 my_address_file_geocoded.csv
+docker run --rm=TRUE -v "%cd%":/tmp degauss/pepr_roadways:0.2 my_address_file_geocoded.csv
 ```
 
 In the above example call, replace `my_address_file_geocoded.csv` with the name of your geocoded csv file. Optionally, you can add another argument for buffer radius.  Otherwise, the buffer will be 300 meters.

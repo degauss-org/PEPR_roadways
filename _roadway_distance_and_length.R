@@ -17,13 +17,13 @@ message('\nloading and projecting S1100 roads shapefile...')
 # roads1100 <- tigris::primary_roads(year=2018) %>%
 #   spTransform(CRS('+init=epsg:5072'))
 # saveRDS(roads1100, "roads1100_sp_5072.rds")
-roads1100 <- readRDS("roads1100_sp_5072.rds")
+roads1100 <- readRDS("/app/roads1100_sp_5072.rds")
 
 message('\nloading and projecting S1200 roads shapefile...')
 # roads1200 <- rgdal::readOGR(dsn="all_TIGER_roads_2018.gpkg") %>% 
 #   spTransform(CRS('+init=epsg:5072'))
 # saveRDS(roads1200, "roads1200_sp_5072.rds")
-roads1200 <- readRDS("roads1200_sp_5072.rds")
+roads1200 <- readRDS("/app/roads1200_sp_5072.rds")
 
 message('\nloading and projecting input file...')
 raw_data <- suppressMessages(read_csv(args$file_name))
