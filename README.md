@@ -38,6 +38,8 @@ In the above example call, replace `my_address_file_geocoded.csv` with the name 
 
 Some progress messages will be printed and when complete, the program will save the output as the same name as the input file name, but with `pepr_roadways` appended, e.g. `my_address_file_geocoded_pepr_roadways.csv`
 
+**_Note:_** This container could take longer than what users may be used to with other DeGAUSS containers due to the large size of the S1200 roadways shapefile.  For example, using Docker to run this container for 193 geocoded addresses took 20-30 minutes on an HP laptop running Windows 10.
+
 ## DeGAUSS Details
 
 For detailed documentation on DeGAUSS, including general usage and installation, please see the [DeGAUSS](https://github.com/cole-brokamp/DeGAUSS) README.
