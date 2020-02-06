@@ -86,7 +86,7 @@ d <- d %>%
   unnest() %>%
   st_drop_geometry()
 
-out <- left_join(raw_data, d, by = '.row') %>% select(-.row)
+out_file <- left_join(raw_data, d, by = '.row') %>% select(-.row)
 
 out_file_name <- paste0(tools::file_path_sans_ext(args$file_name), '_pepr_roads_', args$buffer_radius, 'm_buffer.csv')
 
