@@ -3,7 +3,7 @@
 suppressPackageStartupMessages(library(argparser))
 p <- arg_parser('return distance to nearest and length of S1100 and S1200 roadways within buffer')
 p <- add_argument(p, 'file_name', help = 'name of geocoded csv file')
-p <- add_argument(p, '--buffer_radius', default = 300, help = 'optional; defaults to 300 m')
+p <-add_argument(p, '--buffer_radius', default = 300, help = 'optional; defaults to 300 m')
 args <- parse_args(p)
 
 suppressPackageStartupMessages(library(sf))
@@ -29,19 +29,14 @@ message('\nloading and projecting input file...')
 raw_data <- suppressMessages(read_csv(args$file_name))
 ## raw_data <- suppressMessages(read_csv('./tests/my_address_file_geocoded.csv'))
 
-d_cc <- complete.cases(raw_data[ , c('lat','lon')])
+raw_data$.row <- seq_len(nrow(raw_data))
 
-if (! all(d_cc)) {
-  message('\nWARNING: input file contains ', sum(!d_cc), ' rows with missing coordinates.')
-  message('\nWill return NA for geomarkers for these rows.')
-}
-
-d <- raw_data[d_cc, ]
-
-# store coords as separate numeric columns because
-# trans and back trans lead to rounding errors, making them unsuitable for merging
-d$old_lat <- d$lat
-d$old_lon <- d$lon
+d <-
+  raw_data %>%
+  select(.row, lat, lon) %>%
+  na.omit() %>%
+  group_by(lat, lon) %>%
+  nest()
 
 coordinates(d) <- c('lon','lat')
 proj4string(d) <- CRS('+init=epsg:4326')
@@ -85,14 +80,12 @@ d$length_1100 <- get_line_length(locations = d, lines.shapefile = roads1100)
 message('\nfinding length of S1200 roads within buffer...')
 d$length_1200 <- get_line_length(locations = d, lines.shapefile = roads1200) 
 
-# remove transformed coords and add back "old" coords
+## merge back on .row after unnesting data into .row
 d <- d %>%
-  st_set_geometry(NULL) %>%
-  rename(lon = old_lon,
-         lat = old_lat)
+  unnest() %>%
+  st_drop_geometry()
 
-# add back in original missing coords data for output file
-out_file <- suppressWarnings(bind_rows(raw_data[!d_cc, ], d))
+out <- left_join(raw_data, d, by = '.row') %>% select(-.row)
 
 out_file_name <- paste0(tools::file_path_sans_ext(args$file_name), '_pepr_roads_', args$buffer_radius, 'm_buffer.csv')
 
