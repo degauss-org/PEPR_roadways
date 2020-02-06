@@ -3,7 +3,7 @@
 suppressPackageStartupMessages(library(argparser))
 p <- arg_parser('return distance to nearest and length of S1100 and S1200 roadways within buffer')
 p <- add_argument(p, 'file_name', help = 'name of geocoded csv file')
-p <-add_argument(p, '--buffer_radius', default = 300, help = 'optional; defaults to 300 m')
+p <- add_argument(p, '--buffer_radius', default = 300, help = 'optional; defaults to 300 m')
 args <- parse_args(p)
 
 suppressPackageStartupMessages(library(sf))
@@ -12,6 +12,7 @@ suppressPackageStartupMessages(library(rgeos))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(readr))
 suppressPackageStartupMessages(library(purrr))
+suppressPackageStartupMessages(library(tidyr))
 
 message('\nloading and projecting S1100 roads shapefile...')
 # roads1100 <- tigris::primary_roads(year=2018) %>%
