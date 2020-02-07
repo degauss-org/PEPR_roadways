@@ -25,13 +25,13 @@ DeGAUSS arguments specific to this container:
 **MacOS**
 
 ```
-docker run --rm=TRUE -v "$PWD":/tmp degauss/pepr_roadways:0.2 my_address_file_geocoded.csv
+docker run --rm=TRUE -v "$PWD":/tmp degauss/pepr_roadways:0.3 my_address_file_geocoded.csv
 ```
 
 **Microsoft Windows**
 
 ```
-docker run --rm=TRUE -v "%cd%":/tmp degauss/pepr_roadways:0.2 my_address_file_geocoded.csv
+docker run --rm=TRUE -v "%cd%":/tmp degauss/pepr_roadways:0.3 my_address_file_geocoded.csv
 ```
 
 In the above example call, replace `my_address_file_geocoded.csv` with the name of your geocoded csv file. Optionally, you can add another argument for buffer radius.  Otherwise, the buffer will be 300 meters.
